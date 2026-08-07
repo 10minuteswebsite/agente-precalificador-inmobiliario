@@ -1,0 +1,16 @@
+{
+  "name": "agente-precalificador-inmobiliario",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node -e \"console.log('No build step required')\"",
+    "test": "node --test",
+    "audit:isolation": "node scripts/audit-supabase-isolation.mjs",
+    "vercel-build": "npm run build",
+    "verify:production": "node scripts/verify-production.mjs",
+    "verify:prequalifier": "node scripts/verify-prequalifier.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.111.0"
+  }
+}

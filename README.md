@@ -12,8 +12,16 @@ El Enrutador selecciona y configura este agente; no duplica su lógica de negoci
 ## Modos de operación
 
 - `automatic`: usa la base autónoma de compradores y un máximo inicial de 7 preguntas.
+- `semi_automatic`: usa la base autónoma con un límite configurable de preguntas.
 - `manual`: las preguntas definidas por el cliente sustituyen la base autónoma.
 - `investment_types`: restringe las categorías de comprador/operación habilitadas.
+
+## Contrato con el Enrutador
+
+El Enrutador mantiene la conversación como controlador principal. Este repositorio es un súper
+poder aditivo: devuelve estado de precalificación y eventos para que el conversador los integre,
+pero no responde ni envía mensajes directamente. El contrato completo está en
+[`docs/contracts/router-integration-v1.md`](docs/contracts/router-integration-v1.md).
 
 ## Límites
 

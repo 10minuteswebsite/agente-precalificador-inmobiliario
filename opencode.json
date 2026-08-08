@@ -1,11 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "instructions": [
-    "moving.md",
-    "HANDOFF.md",
-    "docs/CURRENT_STATE.md",
-    "TODO.md",
-    "docs/contracts/*.md",
     "https://raw.githubusercontent.com/10minuteswebsite/AI-Playbooks/main/ARCHITECT_BOOTSTRAP.md"
   ],
   "compaction": {

@@ -1,7 +1,7 @@
 # Estado actual
 
-**Fecha:** 2026-08-07  
-**Rama de preparación:** `migration/opencode_prep`  
+**Fecha:** 2026-08-10  
+**Rama:** `main` (la preparación `migration/opencode_prep` se mergeó como PR #1)  
 **Fuente de verdad:** GitHub, repositorio `10minuteswebsite/agente-precalificador-inmobiliario`
 
 ## Arquitectura
@@ -22,8 +22,11 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 - La extracción contiene contratos de Agent DNA, integración, estado/eventos e informe diario.
 - Los modos automático, semi-automático y manual están documentados; manual sustituye preguntas autónomas.
 - La configuración de tipos de operación y los límites de preguntas están en el Agent DNA.
-- `npm test` pasó 200 pruebas en la rama base antes de esta preparación.
-- No se modificó código funcional ni dependencias en esta rama.
+- `npm test` pasa 200 pruebas en `main`.
+- No se modificó código funcional ni dependencias durante la migración a OpenCode-first.
+- La migración a OpenCode-first está activa en `main`: `opencode.json` carga el bootstrap canónico de
+  AI-Playbooks (`ARCHITECT_BOOTSTRAP.md`, ADR-0005) y el workflow `opencode.yml` atiende `/oc` y
+  `/opencode`. Codex y Claude quedan como historia/compatibilidad en `docs/history/CODEX_MIGRATION.md`.
 
 ## Integraciones e infraestructura
 

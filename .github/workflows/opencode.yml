@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      id-token: write
       contents: write
       pull-requests: write
       issues: write
@@ -23,15 +22,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          fetch-depth: 1
-          persist-credentials: false
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Install OpenCode
+        run: |
+          curl -fsSL https://opencode.ai/install | bash -s -- --version 1.18.15
 
       - name: Run OpenCode
-        uses: anomalyco/opencode/github@latest
+        run: $HOME/.opencode/bin/opencode github run
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          MODEL: deepseek/deepseek-v4-flash
+          USE_GITHUB_TOKEN: "true"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          model: google/gemini-3.6-flash
-          use_github_token: true
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}

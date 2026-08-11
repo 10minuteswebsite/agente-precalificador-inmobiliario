@@ -29,6 +29,11 @@ jobs:
         run: |
           curl -fsSL https://opencode.ai/install | bash -s -- --version 1.18.15
 
+      - name: Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
       - name: Run OpenCode
         run: $HOME/.opencode/bin/opencode github run
         env:

@@ -1,0 +1,39 @@
+{
+  "name": "agente-precalificador-inmobiliario",
+  "module": "real_estate_prequalifier",
+  "schema_version": 1,
+  "version": "1.0.0",
+  "role": "additive-superpower",
+  "controller": "conversational",
+  "strategy": "additive",
+  "capability": {
+    "id": "real_estate_prequalifier",
+    "document": "docs/contracts/real-estate-prequalifier-agent-dna.md"
+  },
+  "contracts": {
+    "integration": {
+      "document": "docs/contracts/router-integration-v1.md",
+      "entrypoint": "createRouterIntegrationV1",
+      "input_schema_version": 1,
+      "output_schema_version": 1
+    },
+    "state_and_events": {
+      "document": "docs/contracts/qualification-state-and-events.md"
+    },
+    "errors": {
+      "document": "docs/contracts/error-contract.md"
+    },
+    "manifest": {
+      "document": "docs/contracts/module-manifest-v1.md"
+    }
+  },
+  "scope": ["tenant_id", "agent_id", "campaign_id", "conversation_id"],
+  "guarantees": {
+    "stateless": true,
+    "idempotent": true,
+    "additive": true,
+    "no_operational_storage": true
+  },
+  "consumed_by": "agente-enrutador",
+  "integration_criteria": "Publish manifest, version, error contract, organization/conversation isolation tests and idempotent retry tests before enabling in production."
+}

@@ -15,6 +15,9 @@ siendo responsable del turno y la agenda externa de crear citas.
 - Estado de calificación, eventos idempotentes, informes diarios y adaptadores Meta/correo.
 - Contrato de integración con el Enrutador en `docs/contracts/router-integration-v1.md`.
 - Extracción inicial desde el Enrutador publicada en este repositorio.
+- Adaptador versionado `createRouterIntegrationV1` (TODO-041) con manifiesto
+  (`module-manifest.json`), contrato de errores (`docs/contracts/error-contract.md`),
+  aislamiento por scopes, idempotencia y pruebas de contrato.
 
 ## Decisiones y límites
 
@@ -26,11 +29,12 @@ siendo responsable del turno y la agenda externa de crear citas.
 
 ## Pendiente inmediato
 
-Conectar este repositorio al Enrutador mediante un adaptador versionado, autenticado e idempotente.
-Antes de habilitarlo en producción deben pasar las pruebas de manifiesto, errores, aislamiento y
-reintentos descritas en `docs/contracts/router-integration-v1.md`.
+TODO-042: retirar gradualmente las piezas copiadas que no pertenezcan al módulo, usando
+`createRouterIntegrationV1` como frontera de compatibilidad. Antes de habilitar el consumo desde el
+Enrutador, revisar manualmente el PR de TODO-041; las pruebas de manifiesto, errores, aislamiento y
+reintentos ya existen y pasan.
 
 ## Verificación conocida
 
-La extracción independiente pasó 200 pruebas con `npm test`. Repite la verificación después de
-cualquier cambio; no asumas que un entorno externo está disponible.
+`npm test` pasa 216 pruebas (200 preexistentes + 16 del contrato TODO-041). Repite la verificación
+después de cualquier cambio; no asumas que un entorno externo está disponible.

@@ -3,15 +3,16 @@
 ## Activo
 
 - **TODO-041 — Adaptador versionado con el Enrutador**
-  - Definir manifiesto, versión, entrada/salida y errores públicos.
-  - Añadir autenticación, aislamiento por organización/conversación e idempotencia.
-  - Probar reintentos y fallos del módulo sin duplicar eventos.
+  - Definir manifiesto, versión, entrada/salida y errores públicos. **Hecho**
+  - Añadir autenticación por scopes, aislamiento por organización/conversación e idempotencia. **Hecho**
+  - Probar reintentos y fallos del módulo sin duplicar eventos. **Hecho**
+  - Pendiente: revisión manual del PR antes de habilitar el consumo desde el Enrutador.
 
 ## Siguiente
 
 - **TODO-042 — Separación del núcleo extraído**
   - Retirar gradualmente piezas copiadas que no pertenezcan al módulo.
-  - Mantener compatibilidad con agentes existentes mediante el adaptador.
+  - Mantener compatibilidad con agentes existentes mediante el adaptador `createRouterIntegrationV1`.
 
 ## Backlog
 

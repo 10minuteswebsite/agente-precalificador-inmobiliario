@@ -12,6 +12,7 @@
   con scopes (introducido en TODO-041).
 - `src/application/router-integration-v1.js`: adaptador versionado `createRouterIntegrationV1`.
 - `src/prequalifier/index.js`: fachada pública única del módulo para evitar imports internos.
+- `package.json`: exportaciones públicas limitadas a la fachada raíz y el manifiesto.
 - `src/domain/reporting`: informe diario con respuestas y análisis.
 - `src/adapters/ai`: proveedores de generación detrás de contratos.
 - `src/adapters/meta`: normalización de webhooks y envío de WhatsApp.

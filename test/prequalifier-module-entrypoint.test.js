@@ -11,6 +11,11 @@ test("exposes a stable public facade", () => {
   assert.equal(Object.isFrozen(module), true);
 });
 
+test("publishes only the facade and manifest package exports", async () => {
+  const packageJson = await import("node:fs/promises").then(({ readFile }) => readFile(new URL("../package.json", import.meta.url), "utf8")).then(JSON.parse);
+  assert.deepEqual(packageJson.exports, { ".": "./src/prequalifier/index.js", "./manifest": "./module-manifest.json" });
+});
+
 test("delegates qualification through Router v1", async () => {
   const module = createPrequalifierModule({ generator: async () => ({
     text: "¿Qué presupuesto manejas?",

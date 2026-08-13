@@ -20,6 +20,8 @@ siendo responsable del turno y la agenda externa de crear citas.
   aislamiento por scopes, idempotencia y pruebas de contrato.
 - Fachada pública `createPrequalifierModule` en `src/prequalifier/index.js`; el consumo nuevo debe
   pasar por ella y no por imports internos.
+- `package.json` exporta únicamente la fachada raíz y el manifiesto; los archivos internos no forman
+  parte del contrato público.
 
 ## Decisiones y límites
 

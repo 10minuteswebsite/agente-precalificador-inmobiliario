@@ -33,10 +33,9 @@ siendo responsable del turno y la agenda externa de crear citas.
 
 ## Pendiente inmediato
 
-TODO-042: retirar gradualmente las piezas copiadas que no pertenezcan al módulo, usando
-`createRouterIntegrationV1` como frontera de compatibilidad. Antes de habilitar el consumo desde el
-Enrutador, revisar manualmente el PR de TODO-041; las pruebas de manifiesto, errores, aislamiento y
-reintentos ya existen y pasan.
+TODO-042: revisar PR #6 y su consumidor coordinado en `agente-enrutador` PR #7. La fachada pública
+ya está publicada en este branch; el Router deja de importar rutas internas cuando ambos cambios
+se integren.
 
 ## Verificación conocida
 

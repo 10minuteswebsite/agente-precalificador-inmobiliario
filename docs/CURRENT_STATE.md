@@ -65,7 +65,7 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 - No se probó la invocación real contra un despliegue (requiere acceso al entorno configurado;
   `verify:prequalifier` permanece pendiente de credenciales).
 - La extracción aún contiene piezas compartidas de la aplicación para mantener las pruebas y la
-  compatibilidad; la separación definitiva es TODO-042.
+  compatibilidad; la separación definitiva continúa después de integrar la fachada pública.
 
-**Siguiente paso exacto:** migrar el consumidor del Enrutador para usar la fachada pública y retirar
-imports internos gradualmente, conservando el contrato v1.
+**Siguiente paso exacto:** revisar e integrar coordinadamente el PR #6 de este repositorio y el PR #7
+de `agente-enrutador`, luego retirar imports internos restantes.

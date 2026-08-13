@@ -12,7 +12,7 @@
 
 - **TODO-042 — Separación del núcleo extraído**
   - Crear una fachada pública única del módulo. **Hecho**
-  - Migrar gradualmente al consumidor del Enrutador para no importar piezas internas.
+  - Migrar gradualmente al consumidor del Enrutador para no importar piezas internas. **PR #7 abierto**
   - Mantener compatibilidad con agentes existentes mediante el adaptador `createRouterIntegrationV1`.
 
 ## Backlog

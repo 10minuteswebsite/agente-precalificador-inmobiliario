@@ -1,6 +1,6 @@
 # Estado actual
 
-**Fecha:** 2026-08-13
+**Fecha:** 2026-08-11  
 **Rama:** `main`
 **Fuente de verdad:** GitHub, repositorio `10minuteswebsite/agente-precalificador-inmobiliario`
 
@@ -11,12 +11,12 @@
 - `src/domain/contracts`: validación de entrada del contrato Router y deriva de `request_id`/eventos
   con scopes (introducido en TODO-041).
 - `src/application/router-integration-v1.js`: adaptador versionado `createRouterIntegrationV1`.
-- El mismo contrato acepta `scheduler_available` y devuelve una acción `scheduling` opcional; la
-  ejecución pertenece al Enrutador.
 - `src/prequalifier/index.js`: fachada pública única del módulo para evitar imports internos.
 - `package.json`: exportaciones públicas limitadas a la fachada raíz y el manifiesto.
 - El paquete está preparado para publicación pública: incluye solo la fachada, el manifiesto,
   contratos y código de `src/`; `npm pack --dry-run` pasa sin incluir datos operativos.
+- Se añadió `.github/workflows/publish.yml`: las etiquetas `vX.Y.Z` y la ejecución manual verifican
+  pruebas y contenido antes de publicar con provenance y acceso público; no se publicó ninguna versión.
 - Un consumidor externo sintético instaló el tarball y pudo importar `createPrequalifierModule`
   únicamente desde la exportación raíz; la fachada devolvió `real_estate_prequalifier`.
 - `src/domain/reporting`: informe diario con respuestas y análisis.
@@ -52,7 +52,7 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 - La extracción contiene contratos de Agent DNA, integración, estado/eventos e informe diario.
 - Los modos automático, semi-automático y manual están documentados; manual sustituye preguntas autónomas.
 - La configuración de tipos de operación y los límites de preguntas están en el Agent DNA.
-- `npm test` pasa **222 pruebas** en esta rama, incluida la extensión aditiva de agenda.
+- `npm test` pasa **219 pruebas** en la rama de separación (200 preexistentes + 19 del contrato/fachada).
 - No se modificó código funcional existente ni dependencias durante TODO-041.
 - La migración a OpenCode-first sigue activa en `main`.
 
@@ -62,8 +62,7 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 - Supabase es la persistencia operativa del sistema anfitrión; este repositorio no debe almacenar datos
   de leads ni secretos.
 - El Enrutador tiene el despliegue activo y conserva una copia compatible durante la migración.
-- La agenda pertenece a un proyecto externo; este módulo solo emite una acción estricta cuando el
-  Enrutador declara la capacidad.
+- La agenda pertenece a un proyecto externo y no está habilitada como responsabilidad de este módulo.
 
 ## Riesgos y pendientes
 
@@ -74,6 +73,7 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 - La extracción aún contiene piezas compartidas de la aplicación para mantener las pruebas y la
   compatibilidad; la separación definitiva continúa después de integrar la fachada pública.
 
-**Siguiente paso exacto:** actualizar el adaptador del Enrutador para pasar `scheduler_available`,
-ejecutar la acción devuelta mediante el endpoint firmado y añadir una prueba combinada; no habilitar
-producción hasta completar el smoke autenticado.
+**Siguiente paso exacto:** configurar el trusted publisher de npm y autorizar la primera etiqueta para
+publicar el paquete. La preparación local está verificada; la integración coordinada ya está
+completada: PR #6 de este repositorio se fusionó como `bf9c99e` y PR #7 de `agente-enrutador` como
+`43cb68d`.

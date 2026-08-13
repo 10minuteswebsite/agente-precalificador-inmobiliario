@@ -62,6 +62,8 @@ export function validateRouterIntegrationInput(input = {}) {
   if (typeof conversationSummary !== "string") fail("conversation_summary_invalid");
   const conversationAction = input.conversation_action ?? "continue";
   if (!["continue", "start"].includes(conversationAction)) fail("conversation_action_invalid");
+  const schedulerAvailable = input.scheduler_available ?? false;
+  if (typeof schedulerAvailable !== "boolean") fail("scheduler_available_invalid");
 
   return {
     ...scopes,
@@ -73,5 +75,6 @@ export function validateRouterIntegrationInput(input = {}) {
     custom_field_values: customFieldValues,
     conversation_summary: conversationSummary,
     conversation_action: conversationAction,
+    scheduler_available: schedulerAvailable,
   };
 }

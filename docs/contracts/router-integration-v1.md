@@ -38,6 +38,7 @@ El Enrutador invoca el módulo con un contrato equivalente a:
   "conversation_summary": "resumen narrativo de esta campaña",
   "qualification_state": "estado anterior o vacío",
   "custom_field_values": "datos ya confirmados",
+  "scheduler_available": false,
   "lead": { "first_name": "solo nombre", "phone": "phone aislado" },
   "inbound": { "text": "último mensaje transcrito" }
 }
@@ -62,14 +63,35 @@ Debe devolver un resultado estructurado para que el conversador lo integre:
     "next_action": "continue_qualification"
   },
   "custom_fields": [],
-  "events": []
+  "events": [],
+  "scheduling": {
+    "action": "none",
+    "service_id": "",
+    "range_start": "",
+    "range_end": "",
+    "timezone": "",
+    "city": "",
+    "booking_id": "",
+    "modality": "phone",
+    "confirmed": false,
+    "answers": {}
+  }
 }
 ```
+
+`scheduler_available` es opcional y por defecto `false`. Cuando es `true`, el generador puede
+devolver una acción `scheduling` estrictamente estructurada. El módulo no llama al calendario ni
+crea, modifica o cancela citas: el Enrutador ejecuta la acción mediante su adaptador de agenda,
+aplicando sus reglas de autorización, idempotencia y confirmación explícita. Si la capacidad no
+está habilitada, cualquier salida de agenda se rechaza.
 
 Los estados y acciones válidos son los definidos en
 `docs/contracts/qualification-state-and-events.md`. Los eventos deben incluir revisión e
 idempotencia. La transición a `prequalified` puede derivar `lead.prequalified` y
 `appointment.requested`, pero la creación de la cita pertenece al adaptador de agenda.
+Las acciones válidas son `none`, `propose_slots`, `get_booking`, `confirm_booking`,
+`reschedule_booking` y `cancel_booking`; todas llevan la forma completa del ejemplo para mantener
+un contrato estricto y versionable.
 
 ## Modos de preguntas
 

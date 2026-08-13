@@ -63,6 +63,32 @@ test("produces contract-shaped output bound to the input scopes", async () => {
   assert.equal(result.events[0].request_id, deriveRequestId("qualification:conversation-1:1"));
 });
 
+test("preserves an additive scheduler action from the shared conversational turn", async () => {
+  let orchestration;
+  const qualify = createRouterIntegrationV1({
+    generator: async (input) => {
+      orchestration = input.orchestration;
+      return {
+        ...collectingOutput(),
+        scheduling: { action: "propose_slots", service_id: "intro", range_start: "2030-09-01T00:00:00-04:00", range_end: "2030-09-02T00:00:00-04:00", timezone: "America/New_York", city: "Miami", booking_id: "", modality: "video", confirmed: false, answers: {} },
+      };
+    },
+  });
+  const result = await qualify(baseInput({ scheduler_available: true }));
+  assert.deepEqual(orchestration.superpowers, ["real_estate_prequalifier", "scheduler"]);
+  assert.equal(result.scheduling.action, "propose_slots");
+});
+
+test("rejects scheduler output when the additive capability is unavailable", async () => {
+  const qualify = createRouterIntegrationV1({
+    generator: async () => ({
+      ...collectingOutput(),
+      scheduling: { action: "none", service_id: "", range_start: "", range_end: "", timezone: "", city: "", booking_id: "", modality: "phone", confirmed: false, answers: {} },
+    }),
+  });
+  await assert.rejects(() => qualify(baseInput()), /scheduling_not_enabled/);
+});
+
 test("rejects unsupported schema versions and missing scopes", async () => {
   const qualify = adapterWith(collectingOutput());
   await assert.rejects(() => qualify(baseInput({ schema_version: 2 })), /schema_version_unsupported/);

@@ -30,6 +30,27 @@ test("keeps generic router agents on a text-only response contract", async () =>
   assert.deepEqual(body.text.format.schema.required, ["text"]);
 });
 
+test("adds the scheduler contract when the additive superpower is enabled", async () => {
+  let body;
+  const generate = createOpenAiPrequalifierGenerator({ apiKey: "synthetic", fetchImpl: async (_url, options) => {
+    body = JSON.parse(options.body);
+    return { ok: true, async json() { return { output: [{ content: [{ type: "output_text", text: JSON.stringify({
+      text: "Encontré un horario.",
+      scheduling: { action: "propose_slots", service_id: "intro", range_start: "2030-09-01T00:00:00-04:00", range_end: "2030-09-02T00:00:00-04:00", timezone: "America/New_York", city: "Miami", booking_id: "", modality: "video", confirmed: false, answers: {} },
+      qualification_state: { schema_version: 1, active_profile_id: "buyer", answers: [], missing_question_ids: [], assessment: { status: "collecting", urgency: "low", reasons: [], limitations: [] }, next_action: "continue_qualification" },
+    }) }] }] }; } };
+  } });
+  const result = await generate({
+    agent_dna: { kind: "real_estate_prequalifier", common_questions: [], profiles: [{ id: "buyer", questions: [] }] },
+    scheduler_available: true,
+    orchestration: { controller: "conversational", strategy: "additive", superpowers: ["real_estate_prequalifier", "scheduler"] },
+    inbound: { text: "Quiero agendar" },
+  });
+  assert.equal(result.scheduling.action, "propose_slots");
+  assert.equal(body.text.format.schema.properties.scheduling.properties.action.enum.includes("confirm_booking"), true);
+  assert.match(body.instructions, /scheduler superpower is enabled/i);
+});
+
 test("instructs generic agents to greet only at conversation start", async () => {
   let body;
   const generate = createOpenAiPrequalifierGenerator({ apiKey: "synthetic", fetchImpl: async (_url, options) => {

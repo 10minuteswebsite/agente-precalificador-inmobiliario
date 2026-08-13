@@ -9,6 +9,15 @@ const NEXT_ACTIONS = {
   not_ready: new Set(["nurture", "human_handoff"]),
   human_review: new Set(["human_handoff"]),
 };
+const SCHEDULER_ACTIONS = new Set([
+  "none",
+  "propose_slots",
+  "get_booking",
+  "confirm_booking",
+  "reschedule_booking",
+  "cancel_booking",
+]);
+const SCHEDULER_MODALITIES = new Set(["phone", "video"]);
 
 function fail(code) {
   throw new Error(`invalid_prequalifier_response:${code}`);
@@ -22,6 +31,31 @@ function cleanText(value, code) {
 function cleanTextList(value, code) {
   if (!Array.isArray(value)) fail(code);
   return value.map((item) => cleanText(item, code));
+}
+
+function normalizeScheduling(raw, enabled) {
+  if (raw === undefined) return undefined;
+  if (!enabled) fail("scheduling_not_enabled");
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) fail("scheduling_invalid");
+  if (!SCHEDULER_ACTIONS.has(raw.action)) fail("scheduling_action_invalid");
+  for (const field of ["service_id", "range_start", "range_end", "timezone", "city", "booking_id"]) {
+    if (typeof raw[field] !== "string") fail("scheduling_field_invalid");
+  }
+  if (!SCHEDULER_MODALITIES.has(raw.modality)) fail("scheduling_modality_invalid");
+  if (typeof raw.confirmed !== "boolean") fail("scheduling_confirmation_invalid");
+  if (!raw.answers || typeof raw.answers !== "object" || Array.isArray(raw.answers)) fail("scheduling_answers_invalid");
+  return {
+    action: raw.action,
+    service_id: raw.service_id,
+    range_start: raw.range_start,
+    range_end: raw.range_end,
+    timezone: raw.timezone,
+    city: raw.city,
+    booking_id: raw.booking_id,
+    modality: raw.modality,
+    confirmed: raw.confirmed,
+    answers: raw.answers,
+  };
 }
 
 function configuredQuestionIds(agentDna) {
@@ -79,14 +113,21 @@ function deriveEvents({ conversationId, previousStatus, state }) {
   return events;
 }
 
-export function normalizeAgentResponse({ agentDna, output, currentState = {}, conversationId } = {}) {
+export function normalizeAgentResponse({ agentDna, output, currentState = {}, conversationId, schedulingEnabled = false } = {}) {
   const text = responseText(output);
   if (!text) throw new Error("agent_empty_response");
+  const scheduling = normalizeScheduling(output?.scheduling, schedulingEnabled);
   const configuredCustomFields = agentDna?.custom_fields ?? [];
   const customFieldValues = configuredCustomFields.length
     ? normalizeCustomFieldValues({ fields: configuredCustomFields, values: output?.custom_fields ?? [], previous: currentState.custom_field_values ?? {} })
     : null;
-  if (agentDna?.kind !== "real_estate_prequalifier") return customFieldValues ? { text, custom_field_values: customFieldValues } : { text };
+  if (agentDna?.kind !== "real_estate_prequalifier") {
+    return {
+      text,
+      ...(customFieldValues ? { custom_field_values: customFieldValues } : {}),
+      ...(scheduling ? { scheduling } : {}),
+    };
+  }
   if (typeof conversationId !== "string" || !conversationId) fail("conversation_id_required");
   const raw = output?.qualification_state;
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) fail("state_required");
@@ -161,6 +202,7 @@ export function normalizeAgentResponse({ agentDna, output, currentState = {}, co
     text: finalText,
     ...(output?.interactive ? { interactive: output.interactive } : {}),
     ...(customFieldValues ? { custom_field_values: customFieldValues } : {}),
+    ...(scheduling ? { scheduling } : {}),
     qualification_state: state,
     events: deriveEvents({ conversationId, previousStatus: currentState.assessment?.status, state }),
   };

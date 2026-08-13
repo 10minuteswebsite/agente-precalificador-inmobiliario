@@ -37,8 +37,9 @@ function scopesOf(contract) {
 /**
  * Versioned adapter between the conversational Router (controller) and this
  * prequalification module (additive superpower). The Router keeps memory,
- * leads, campaigns and external integrations; this adapter exposes only the
- * capability defined by docs/contracts/router-integration-v1.md.
+ * leads, campaigns and external integrations; this adapter exposes the
+ * prequalification result plus an optional scheduler action defined by
+ * docs/contracts/router-integration-v1.md.
  *
  * It is stateless and deterministic: for identical input (same scopes,
  * idempotency key and previous qualification state) it returns identical
@@ -58,7 +59,7 @@ export function createRouterIntegrationV1({ generator } = {}) {
         orchestration: {
           controller: ROUTER_INTEGRATION_V1.controller,
           strategy: ROUTER_INTEGRATION_V1.strategy,
-          superpowers: [ROUTER_INTEGRATION_V1.capability],
+          superpowers: [ROUTER_INTEGRATION_V1.capability, ...(contract.scheduler_available ? ["scheduler"] : [])],
         },
         campaign_id: contract.campaign_id,
         conversation_id: contract.conversation_id,
@@ -66,6 +67,7 @@ export function createRouterIntegrationV1({ generator } = {}) {
         conversation_summary: contract.conversation_summary,
         qualification_state: contract.qualification_state,
         custom_field_values: contract.custom_field_values,
+        scheduler_available: contract.scheduler_available,
         lead: contract.lead,
         inbound: contract.inbound,
       });
@@ -80,6 +82,7 @@ export function createRouterIntegrationV1({ generator } = {}) {
         output,
         currentState: contract.qualification_state,
         conversationId: contract.conversation_id,
+        schedulingEnabled: contract.scheduler_available,
       });
     } catch (error) {
       throw new Error(`router_integration:invalid_ai_response:${error?.message ?? "invalid"}`);
@@ -90,6 +93,7 @@ export function createRouterIntegrationV1({ generator } = {}) {
       text: result.text,
       qualification_state: result.qualification_state,
       custom_fields: toCustomFields(result.custom_field_values),
+      ...(result.scheduling ? { scheduling: result.scheduling } : {}),
       events: scopeEvents(result.events ?? [], requestId, scopesOf(contract)),
     };
   };

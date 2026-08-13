@@ -22,6 +22,9 @@ siendo responsable del turno y la agenda externa de crear citas.
   pasar por ella y no por imports internos.
 - `package.json` exporta únicamente la fachada raíz y el manifiesto; los archivos internos no forman
   parte del contrato público.
+- El contrato Router v1 admite `scheduler_available`. Cuando está activo, el módulo puede devolver
+  una acción `scheduling` estrictamente validada; el Enrutador conserva la ejecución externa y la
+  confirmación de citas.
 
 ## Decisiones y límites
 
@@ -37,11 +40,12 @@ TODO-042 está completado: PR #6 se integró en `main` como `bf9c99e` y el consu
 PR #7 se integró en `agente-enrutador` como `43cb68d`. El Router ya consume la fachada pública;
 no se deben añadir imports internos nuevos.
 
-El siguiente incremento es TODO-043: decidir si se publica el módulo como paquete/endpoint
-versionado independiente. La activación productiva sigue separada y explícitamente deshabilitada
-hasta una verificación real del entorno.
+El siguiente incremento es TODO-044: conectar el runner del Enrutador con la acción aditiva de
+agenda. La activación productiva sigue separada y explícitamente deshabilitada hasta una
+verificación real del entorno.
 
 ## Verificación conocida
 
-`npm test` pasa 219 pruebas (200 preexistentes + 19 del contrato/fachada). Repite la verificación
+`npm test` pasa 222 pruebas, incluida la salida aditiva de agenda y su rechazo cuando no está
+habilitada. Repite la verificación
 después de cualquier cambio; no asumas que un entorno externo está disponible.

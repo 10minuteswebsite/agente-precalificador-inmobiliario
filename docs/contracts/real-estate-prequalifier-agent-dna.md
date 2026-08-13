@@ -31,7 +31,7 @@ Los agentes genéricos existentes conservan compatibilidad. La validación espec
 | `reporting` | Informe diario por correo con todos los leads. |
 | `question_mode` | `automatic` usa la base autónoma; `semi_automatic` usa esa base con un límite definido; `manual` la reemplaza por preguntas del cliente. |
 | `max_questions` | Límite máximo de preguntas únicas por conversación; por defecto `7` y configurable entre `1` y `50` en modo semi-automático. |
-| `scheduling` | Integración externa pendiente, agregada de forma normalizada por el validador. |
+| `scheduling` | Acción opcional devuelta al Enrutador cuando el súper poder `scheduler` está habilitado; el módulo no ejecuta citas. |
 
 La base inicial atiende compradores. Alquiler y otros servicios requieren un alcance comercial
 explícito y una evolución de contrato; no se activan implícitamente.

@@ -46,7 +46,7 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 - La extracción contiene contratos de Agent DNA, integración, estado/eventos e informe diario.
 - Los modos automático, semi-automático y manual están documentados; manual sustituye preguntas autónomas.
 - La configuración de tipos de operación y los límites de preguntas están en el Agent DNA.
-- `npm test` pasa **216 pruebas** en la rama TODO-041 (200 preexistentes + 16 nuevas de contrato).
+- `npm test` pasa **219 pruebas** en la rama de separación (200 preexistentes + 19 del contrato/fachada).
 - No se modificó código funcional existente ni dependencias durante TODO-041.
 - La migración a OpenCode-first sigue activa en `main`.
 

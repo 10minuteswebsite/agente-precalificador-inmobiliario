@@ -39,5 +39,5 @@ se integren.
 
 ## Verificación conocida
 
-`npm test` pasa 216 pruebas (200 preexistentes + 16 del contrato TODO-041). Repite la verificación
+`npm test` pasa 219 pruebas (200 preexistentes + 19 del contrato/fachada). Repite la verificación
 después de cualquier cambio; no asumas que un entorno externo está disponible.

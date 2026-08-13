@@ -51,7 +51,7 @@ La configuración y los prompts deben derivarse del Agent DNA; ningún prompt es
 
 ## Publicación
 
-La publicación se ejecuta desde `.github/workflows/publish.yml` al crear una etiqueta `vX.Y.Z` o
-manualmente desde GitHub Actions. El flujo ejecuta `npm test` y `npm run pack:check` antes de publicar
+La publicación se ejecuta desde `.github/workflows/publish.yml` al crear una etiqueta `vX.Y.Z` que
+coincida exactamente con la versión de `package.json`. El flujo ejecuta `npm test` y `npm run pack:check` antes de publicar
 con provenance y acceso público. Antes de usarlo, un administrador debe configurar el trusted publisher
 de npm para este repositorio y verificar que la etiqueta coincida con `package.json`.

@@ -15,7 +15,7 @@
 - `package.json`: exportaciones públicas limitadas a la fachada raíz y el manifiesto.
 - El paquete está preparado para publicación pública: incluye solo la fachada, el manifiesto,
   contratos y código de `src/`; `npm pack --dry-run` pasa sin incluir datos operativos.
-- Se añadió `.github/workflows/publish.yml`: las etiquetas `vX.Y.Z` y la ejecución manual verifican
+- Se añadió `.github/workflows/publish.yml`: las etiquetas `vX.Y.Z` verifican
   pruebas y contenido antes de publicar con provenance y acceso público; no se publicó ninguna versión.
 - Un consumidor externo sintético instaló el tarball y pudo importar `createPrequalifierModule`
   únicamente desde la exportación raíz; la fachada devolvió `real_estate_prequalifier`.

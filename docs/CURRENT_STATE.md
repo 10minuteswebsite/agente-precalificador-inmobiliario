@@ -11,6 +11,8 @@
 - `src/domain/contracts`: validación de entrada del contrato Router y deriva de `request_id`/eventos
   con scopes (introducido en TODO-041).
 - `src/application/router-integration-v1.js`: adaptador versionado `createRouterIntegrationV1`.
+- `src/prequalifier/index.js`: fachada pública única del módulo para evitar imports internos.
+- `package.json`: exportaciones públicas limitadas a la fachada raíz y el manifiesto.
 - `src/domain/reporting`: informe diario con respuestas y análisis.
 - `src/adapters/ai`: proveedores de generación detrás de contratos.
 - `src/adapters/meta`: normalización de webhooks y envío de WhatsApp.
@@ -44,7 +46,7 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 - La extracción contiene contratos de Agent DNA, integración, estado/eventos e informe diario.
 - Los modos automático, semi-automático y manual están documentados; manual sustituye preguntas autónomas.
 - La configuración de tipos de operación y los límites de preguntas están en el Agent DNA.
-- `npm test` pasa **216 pruebas** en la rama TODO-041 (200 preexistentes + 16 nuevas de contrato).
+- `npm test` pasa **219 pruebas** en la rama de separación (200 preexistentes + 19 del contrato/fachada).
 - No se modificó código funcional existente ni dependencias durante TODO-041.
 - La migración a OpenCode-first sigue activa en `main`.
 
@@ -63,7 +65,7 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 - No se probó la invocación real contra un despliegue (requiere acceso al entorno configurado;
   `verify:prequalifier` permanece pendiente de credenciales).
 - La extracción aún contiene piezas compartidas de la aplicación para mantener las pruebas y la
-  compatibilidad; la separación definitiva es TODO-042.
+  compatibilidad; la separación definitiva continúa después de integrar la fachada pública.
 
-**Siguiente paso exacto:** revisión manual del PR de TODO-041; después, TODO-042 (separación del
-núcleo extraído usando el adaptador versionado como frontera de compatibilidad).
+**Siguiente paso exacto:** revisar e integrar coordinadamente el PR #6 de este repositorio y el PR #7
+de `agente-enrutador`, luego retirar imports internos restantes.

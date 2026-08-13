@@ -2,6 +2,10 @@
   "name": "agente-precalificador-inmobiliario",
   "private": true,
   "type": "module",
+  "exports": {
+    ".": "./src/prequalifier/index.js",
+    "./manifest": "./module-manifest.json"
+  },
   "scripts": {
     "build": "node -e \"console.log('No build step required')\"",
     "test": "node --test",

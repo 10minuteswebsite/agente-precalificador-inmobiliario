@@ -18,6 +18,10 @@ siendo responsable del turno y la agenda externa de crear citas.
 - Adaptador versionado `createRouterIntegrationV1` (TODO-041) con manifiesto
   (`module-manifest.json`), contrato de errores (`docs/contracts/error-contract.md`),
   aislamiento por scopes, idempotencia y pruebas de contrato.
+- Fachada pública `createPrequalifierModule` en `src/prequalifier/index.js`; el consumo nuevo debe
+  pasar por ella y no por imports internos.
+- `package.json` exporta únicamente la fachada raíz y el manifiesto; los archivos internos no forman
+  parte del contrato público.
 
 ## Decisiones y límites
 
@@ -29,12 +33,11 @@ siendo responsable del turno y la agenda externa de crear citas.
 
 ## Pendiente inmediato
 
-TODO-042: retirar gradualmente las piezas copiadas que no pertenezcan al módulo, usando
-`createRouterIntegrationV1` como frontera de compatibilidad. Antes de habilitar el consumo desde el
-Enrutador, revisar manualmente el PR de TODO-041; las pruebas de manifiesto, errores, aislamiento y
-reintentos ya existen y pasan.
+TODO-042: revisar PR #6 y su consumidor coordinado en `agente-enrutador` PR #7. La fachada pública
+ya está publicada en este branch; el Router deja de importar rutas internas cuando ambos cambios
+se integren.
 
 ## Verificación conocida
 
-`npm test` pasa 216 pruebas (200 preexistentes + 16 del contrato TODO-041). Repite la verificación
+`npm test` pasa 219 pruebas (200 preexistentes + 19 del contrato/fachada). Repite la verificación
 después de cualquier cambio; no asumas que un entorno externo está disponible.

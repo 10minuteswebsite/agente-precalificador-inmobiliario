@@ -9,6 +9,9 @@ Este repositorio es la fuente de verdad del Agent DNA, perfiles, preguntas, crit
 conversacionales, estados de calificación, informes y adaptadores específicos del precalificador.
 El Enrutador selecciona y configura este agente; no duplica su lógica de negocio.
 
+El punto de entrada público es `src/prequalifier/index.js`. Los consumidores deben usar
+`createPrequalifierModule()` y no importar directamente módulos internos.
+
 ## Modos de operación
 
 - `automatic`: usa la base autónoma de compradores y un máximo inicial de 7 preguntas.

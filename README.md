@@ -55,3 +55,6 @@ La publicación se ejecuta desde `.github/workflows/publish.yml` al crear una et
 coincida exactamente con la versión de `package.json`. El flujo ejecuta `npm test` y `npm run pack:check` antes de publicar
 con provenance y acceso público. Antes de usarlo, un administrador debe configurar el trusted publisher
 de npm para este repositorio y verificar que la etiqueta coincida con `package.json`.
+
+Cada Pull Request y cada push a `main` ejecutan además `.github/workflows/test.yml` para comprobar
+la suite y el contenido público sin publicar el paquete.

@@ -17,7 +17,7 @@
 
 ## Backlog
 
-- **TODO-043 — Publicar paquete o endpoint versionado** cuando el contrato y las pruebas de integración estén aprobados. Preparación del paquete y workflow de publicación completados (`npm pack --dry-run`, etiqueta protegida contra versiones divergentes); el registro devuelve `404`, por lo que falta configurar el trusted publisher de npm y autorizar la primera etiqueta.
+- **TODO-043 — Publicar paquete o endpoint versionado** cuando el contrato y las pruebas de integración estén aprobados. Preparación del paquete y workflows de prueba/publicación completados (`npm pack --dry-run`, etiqueta protegida contra versiones divergentes); el registro devuelve `404`, por lo que falta configurar el trusted publisher de npm y autorizar la primera etiqueta.
 - **TODO-044 — Integrar el agendamiento** cuando el proyecto externo publique su endpoint autenticado.
 
 No se incluyen aquí ideas descartadas ni tareas pertenecientes al dashboard del Enrutador.

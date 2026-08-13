@@ -18,6 +18,8 @@ siendo responsable del turno y la agenda externa de crear citas.
 - Adaptador versionado `createRouterIntegrationV1` (TODO-041) con manifiesto
   (`module-manifest.json`), contrato de errores (`docs/contracts/error-contract.md`),
   aislamiento por scopes, idempotencia y pruebas de contrato.
+- Fachada pública `createPrequalifierModule` en `src/prequalifier/index.js`; el consumo nuevo debe
+  pasar por ella y no por imports internos.
 
 ## Decisiones y límites
 

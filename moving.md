@@ -11,5 +11,8 @@ La frontera pública con el Enrutador es `src/application/router-integration-v1.
 `docs/contracts/router-integration-v1.md` + `error-contract.md`. No alteres esa firma sin evolución
 de contrato (`schema_version`).
 
+Para consumo nuevo usa la fachada `src/prequalifier/index.js` (`createPrequalifierModule`); la ruta
+de aplicación se conserva como compatibilidad interna de v1.
+
 No dependas de conversaciones anteriores. Para trabajo sustancial, sigue las reglas canónicas del
 arquitecto indicadas en `opencode.json`.

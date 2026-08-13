@@ -11,6 +11,7 @@
 - `src/domain/contracts`: validación de entrada del contrato Router y deriva de `request_id`/eventos
   con scopes (introducido en TODO-041).
 - `src/application/router-integration-v1.js`: adaptador versionado `createRouterIntegrationV1`.
+- `src/prequalifier/index.js`: fachada pública única del módulo para evitar imports internos.
 - `src/domain/reporting`: informe diario con respuestas y análisis.
 - `src/adapters/ai`: proveedores de generación detrás de contratos.
 - `src/adapters/meta`: normalización de webhooks y envío de WhatsApp.
@@ -65,5 +66,5 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 - La extracción aún contiene piezas compartidas de la aplicación para mantener las pruebas y la
   compatibilidad; la separación definitiva es TODO-042.
 
-**Siguiente paso exacto:** revisión manual del PR de TODO-041; después, TODO-042 (separación del
-núcleo extraído usando el adaptador versionado como frontera de compatibilidad).
+**Siguiente paso exacto:** migrar el consumidor del Enrutador para usar la fachada pública y retirar
+imports internos gradualmente, conservando el contrato v1.

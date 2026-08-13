@@ -16,7 +16,8 @@
 - El paquete está preparado para publicación pública: incluye solo la fachada, el manifiesto,
   contratos y código de `src/`; `npm pack --dry-run` pasa sin incluir datos operativos.
 - Se añadió `.github/workflows/publish.yml`: las etiquetas `vX.Y.Z` verifican
-  pruebas y contenido antes de publicar con provenance y acceso público; no se publicó ninguna versión.
+  pruebas, contenido, versión y pertenencia a `main` antes de publicar con provenance y acceso público;
+  no se publicó ninguna versión.
 - Se añadió `.github/workflows/test.yml` para ejecutar `npm test` y `npm run pack:check` en cada PR y
   push a `main`, sin publicar ni usar secretos.
 - Comprobación de registro del 2026-08-13: `npm view agente-precalificador-inmobiliario version` devuelve

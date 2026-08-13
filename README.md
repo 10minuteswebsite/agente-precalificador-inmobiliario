@@ -48,3 +48,13 @@ npm test
 ```
 
 La configuración y los prompts deben derivarse del Agent DNA; ningún prompt es fuente de verdad.
+
+## Publicación
+
+La publicación se ejecuta desde `.github/workflows/publish.yml` al crear una etiqueta `vX.Y.Z` que
+coincida exactamente con la versión de `package.json`. El flujo ejecuta `npm test` y `npm run pack:check` antes de publicar
+con provenance y acceso público, y solo acepta commits contenidos en `main`. Antes de usarlo, un administrador debe configurar el trusted publisher
+de npm para este repositorio y verificar que la etiqueta coincida con `package.json`.
+
+Cada Pull Request y cada push a `main` ejecutan además `.github/workflows/test.yml` para comprobar
+la suite y el contenido público sin publicar el paquete.

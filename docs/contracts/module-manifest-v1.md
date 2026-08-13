@@ -2,10 +2,13 @@
 
 **Versión del manifiesto:** 1  
 **Versión del módulo:** 1.0.0  
-**Estado:** Candidato a integración (requiere revisión y aprobación del Enrutador)
+**Estado:** Integrado en el Enrutador; publicación independiente pendiente de autorización
 
 Fuente canónica: `module-manifest.json` en la raíz del repositorio. Este documento lo describe
 para revisión humana; el JSON es la versión procesable por máquina.
+
+La fachada pública del paquete es `createPrequalifierModule`; la fachada expone el contrato de
+integración `createRouterIntegrationV1` sin convertir rutas internas en API pública.
 
 ## Rol
 

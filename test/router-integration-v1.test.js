@@ -219,6 +219,7 @@ test("publishes a manifest and the referenced contract documents", async () => {
   assert.equal(manifest.schema_version, 1);
   assert.equal(manifest.module, "real_estate_prequalifier");
   assert.equal(manifest.contracts.integration.entrypoint, "createRouterIntegrationV1");
+  assert.equal(manifest.contracts.public_entrypoint, "createPrequalifierModule");
   assert.equal(manifest.role, "additive-superpower");
   assert.equal(manifest.controller, "conversational");
   const manifestDoc = await readFile(new URL("../docs/contracts/module-manifest-v1.md", import.meta.url), "utf8");

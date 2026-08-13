@@ -15,6 +15,8 @@
 - `package.json`: exportaciones públicas limitadas a la fachada raíz y el manifiesto.
 - El paquete está preparado para publicación pública: incluye solo la fachada, el manifiesto,
   contratos y código de `src/`; `npm pack --dry-run` pasa sin incluir datos operativos.
+- Un consumidor externo sintético instaló el tarball y pudo importar `createPrequalifierModule`
+  únicamente desde la exportación raíz; la fachada devolvió `real_estate_prequalifier`.
 - `src/domain/reporting`: informe diario con respuestas y análisis.
 - `src/adapters/ai`: proveedores de generación detrás de contratos.
 - `src/adapters/meta`: normalización de webhooks y envío de WhatsApp.

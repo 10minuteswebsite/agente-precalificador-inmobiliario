@@ -1,7 +1,7 @@
 # Estado actual
 
 **Fecha:** 2026-08-11  
-**Rama:** `opencode/issue4-20260811104836` (PR abierto para revisión manual)  
+**Rama:** `main`
 **Fuente de verdad:** GitHub, repositorio `10minuteswebsite/agente-precalificador-inmobiliario`
 
 ## Arquitectura
@@ -60,12 +60,13 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 
 ## Riesgos y pendientes
 
-- El adaptador no está aún conectado desde `agente-enrutador`; el criterio de habilitación exige la
-  revisión manual de este PR y la decisión del Enrutador.
+- El adaptador ya está conectado desde `agente-enrutador` mediante la fachada pública; la activación
+  productiva sigue protegida por la bandera explícita del Router.
 - No se probó la invocación real contra un despliegue (requiere acceso al entorno configurado;
   `verify:prequalifier` permanece pendiente de credenciales).
 - La extracción aún contiene piezas compartidas de la aplicación para mantener las pruebas y la
   compatibilidad; la separación definitiva continúa después de integrar la fachada pública.
 
-**Siguiente paso exacto:** revisar e integrar coordinadamente el PR #6 de este repositorio y el PR #7
-de `agente-enrutador`, luego retirar imports internos restantes.
+**Siguiente paso exacto:** abordar TODO-043: evaluar la publicación del módulo como paquete/endpoint
+versionado independiente. La integración coordinada ya está completada: PR #6 de este repositorio
+se fusionó como `bf9c99e` y PR #7 de `agente-enrutador` como `43cb68d`.

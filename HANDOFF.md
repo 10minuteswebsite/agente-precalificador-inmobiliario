@@ -33,9 +33,13 @@ siendo responsable del turno y la agenda externa de crear citas.
 
 ## Pendiente inmediato
 
-TODO-042: revisar PR #6 y su consumidor coordinado en `agente-enrutador` PR #7. La fachada pública
-ya está publicada en este branch; el Router deja de importar rutas internas cuando ambos cambios
-se integren.
+TODO-042 está completado: PR #6 se integró en `main` como `bf9c99e` y el consumidor coordinado
+PR #7 se integró en `agente-enrutador` como `43cb68d`. El Router ya consume la fachada pública;
+no se deben añadir imports internos nuevos.
+
+El siguiente incremento es TODO-043: decidir si se publica el módulo como paquete/endpoint
+versionado independiente. La activación productiva sigue separada y explícitamente deshabilitada
+hasta una verificación real del entorno.
 
 ## Verificación conocida
 

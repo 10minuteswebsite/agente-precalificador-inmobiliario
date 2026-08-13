@@ -17,6 +17,8 @@
   contratos y código de `src/`; `npm pack --dry-run` pasa sin incluir datos operativos.
 - Se añadió `.github/workflows/publish.yml`: las etiquetas `vX.Y.Z` verifican
   pruebas y contenido antes de publicar con provenance y acceso público; no se publicó ninguna versión.
+- Comprobación de registro del 2026-08-13: `npm view agente-precalificador-inmobiliario version` devuelve
+  `404`; el paquete aún no está publicado y el Enrutador debe continuar usando la dependencia Git fijada.
 - Un consumidor externo sintético instaló el tarball y pudo importar `createPrequalifierModule`
   únicamente desde la exportación raíz; la fachada devolvió `real_estate_prequalifier`.
 - `src/domain/reporting`: informe diario con respuestas y análisis.

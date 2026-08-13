@@ -12,6 +12,9 @@ El Enrutador selecciona y configura este agente; no duplica su lógica de negoci
 El punto de entrada público es `src/prequalifier/index.js`. Los consumidores deben usar
 `createPrequalifierModule()` y no importar directamente módulos internos.
 
+El paquete ya está preparado para publicación pública (`npm pack --dry-run`); la publicación
+real requiere una cuenta y una decisión operativa sobre el registro de paquetes.
+
 ## Modos de operación
 
 - `automatic`: usa la base autónoma de compradores y un máximo inicial de 7 preguntas.

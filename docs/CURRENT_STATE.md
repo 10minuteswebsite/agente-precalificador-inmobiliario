@@ -13,6 +13,8 @@
 - `src/application/router-integration-v1.js`: adaptador versionado `createRouterIntegrationV1`.
 - `src/prequalifier/index.js`: fachada pública única del módulo para evitar imports internos.
 - `package.json`: exportaciones públicas limitadas a la fachada raíz y el manifiesto.
+- El paquete está preparado para publicación pública: incluye solo la fachada, el manifiesto,
+  contratos y código de `src/`; `npm pack --dry-run` pasa sin incluir datos operativos.
 - `src/domain/reporting`: informe diario con respuestas y análisis.
 - `src/adapters/ai`: proveedores de generación detrás de contratos.
 - `src/adapters/meta`: normalización de webhooks y envío de WhatsApp.
@@ -67,6 +69,7 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 - La extracción aún contiene piezas compartidas de la aplicación para mantener las pruebas y la
   compatibilidad; la separación definitiva continúa después de integrar la fachada pública.
 
-**Siguiente paso exacto:** abordar TODO-043: evaluar la publicación del módulo como paquete/endpoint
-versionado independiente. La integración coordinada ya está completada: PR #6 de este repositorio
-se fusionó como `bf9c99e` y PR #7 de `agente-enrutador` como `43cb68d`.
+**Siguiente paso exacto:** publicar el paquete en el registro elegido cuando exista autorización y
+credencial de publicación. La preparación local está verificada; la integración coordinada ya está
+completada: PR #6 de este repositorio se fusionó como `bf9c99e` y PR #7 de `agente-enrutador` como
+`43cb68d`.

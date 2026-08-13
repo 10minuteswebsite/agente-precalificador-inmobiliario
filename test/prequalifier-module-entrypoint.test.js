@@ -16,6 +16,14 @@ test("publishes only the facade and manifest package exports", async () => {
   assert.deepEqual(packageJson.exports, { ".": "./src/prequalifier/index.js", "./manifest": "./module-manifest.json" });
 });
 
+test("is prepared for public package publication without bundling operational data", async () => {
+  const packageJson = await import("node:fs/promises").then(({ readFile }) => readFile(new URL("../package.json", import.meta.url), "utf8")).then(JSON.parse);
+  assert.equal(packageJson.private, undefined);
+  assert.equal(packageJson.publishConfig.access, "public");
+  assert.ok(packageJson.files.includes("src/"));
+  assert.ok(!packageJson.files.includes("data/"));
+});
+
 test("delegates qualification through Router v1", async () => {
   const module = createPrequalifierModule({ generator: async () => ({
     text: "¿Qué presupuesto manejas?",

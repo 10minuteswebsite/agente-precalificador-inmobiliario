@@ -1,7 +1,24 @@
 {
   "name": "agente-precalificador-inmobiliario",
-  "private": true,
   "type": "module",
+  "version": "1.0.0",
+  "description": "Módulo versionado de precalificación inmobiliaria para agentes conversacionales",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/10minuteswebsite/agente-precalificador-inmobiliario.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "src/",
+    "module-manifest.json",
+    "docs/contracts/",
+    "README.md",
+    "AGENTS.md",
+    "moving.md",
+    "HANDOFF.md"
+  ],
   "exports": {
     ".": "./src/prequalifier/index.js",
     "./manifest": "./module-manifest.json"
@@ -9,6 +26,7 @@
   "scripts": {
     "build": "node -e \"console.log('No build step required')\"",
     "test": "node --test",
+    "pack:check": "npm pack --dry-run",
     "audit:isolation": "node scripts/audit-supabase-isolation.mjs",
     "vercel-build": "npm run build",
     "verify:production": "node scripts/verify-production.mjs",

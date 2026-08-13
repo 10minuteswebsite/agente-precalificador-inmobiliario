@@ -17,7 +17,7 @@
 
 ## Backlog
 
-- **TODO-043 — Publicar paquete o endpoint versionado** cuando el contrato y las pruebas de integración estén aprobados. La fachada Git ya está consumida; falta decidir publicación independiente.
+- **TODO-043 — Publicar paquete o endpoint versionado** cuando el contrato y las pruebas de integración estén aprobados. Preparación del paquete completada (`npm pack --dry-run`); falta autorización/credencial para publicar en el registro elegido.
 - **TODO-044 — Integrar el agendamiento** cuando el proyecto externo publique su endpoint autenticado.
 
 No se incluyen aquí ideas descartadas ni tareas pertenecientes al dashboard del Enrutador.

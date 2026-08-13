@@ -11,6 +11,7 @@
     "document": "docs/contracts/real-estate-prequalifier-agent-dna.md"
   },
   "contracts": {
+    "public_entrypoint": "createPrequalifierModule",
     "integration": {
       "document": "docs/contracts/router-integration-v1.md",
       "entrypoint": "createRouterIntegrationV1",

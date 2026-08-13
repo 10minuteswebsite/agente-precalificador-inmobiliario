@@ -67,6 +67,7 @@ export function createRouterIntegrationV1({ generator } = {}) {
         conversation_summary: contract.conversation_summary,
         qualification_state: contract.qualification_state,
         custom_field_values: contract.custom_field_values,
+        scheduler_available: contract.scheduler_available,
         lead: contract.lead,
         inbound: contract.inbound,
       });

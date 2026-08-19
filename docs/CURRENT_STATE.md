@@ -93,3 +93,12 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 publicar el paquete. La preparación local está verificada; la integración coordinada ya está
 completada: PR #6 de este repositorio se fusionó como `bf9c99e` y PR #7 de `agente-enrutador` como
 `43cb68d`.
+
+### Correo conocido compartido con el Agendador — 2026-08-19
+
+El Prompt Master y el módulo de precalificación usan ahora el mismo resolver: primero revisa los
+campos capturados de la conversación y después el correo persistido del lead. Solo un correo con
+formato válido cuenta como conocido; un valor malformado no evita la solicitud. Esto evita que el
+Prompt Master y el súper poder Agendamiento pidan dos veces el mismo dato.
+
+Verificación: `npm test` (225 pruebas), `npm run pack:check`, `git diff --check`.

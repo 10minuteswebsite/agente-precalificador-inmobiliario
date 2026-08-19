@@ -1,4 +1,5 @@
 import { createOpenAiStructuredGenerator } from "./openai-structured-generator.js";
+import { resolveKnownLeadEmail } from "../../domain/leads/resolve-known-lead-email.js";
 
 const stringArray = { type: "array", items: { type: "string" } };
 
@@ -101,7 +102,9 @@ export function createOpenAiPrequalifierGenerator(options = {}) {
   return async (input) => {
     const configuredFields = input.agent_dna.custom_fields ?? [];
     const knownFields = new Set(Object.keys(input.custom_field_values ?? {}));
-    if (input.lead?.email) configuredFields.filter((field) => field.type === "email").forEach((field) => knownFields.add(field.id));
+    if (resolveKnownLeadEmail({ agentDna: input.agent_dna, customFieldValues: input.custom_field_values, lead: input.lead })) configuredFields
+      .filter((field) => field.type === "email" || /email|correo/i.test(`${field?.id ?? ""} ${field?.label ?? ""}`))
+      .forEach((field) => knownFields.add(field.id));
     const missingFields = configuredFields.filter((field) => !knownFields.has(field.id));
     const reservationConfirmed = /(?:^|\s)(?:s[ií]|claro|adelante|por supuesto|quiero reservar|deseo reservar)(?=\s|$|[.!?,])/i.test(input.inbound?.text ?? "");
     const customFieldInstruction = configuredFields.length

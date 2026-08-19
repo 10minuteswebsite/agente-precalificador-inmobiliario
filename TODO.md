@@ -7,6 +7,11 @@
   - Evitar que el módulo genere diálogo interno de disponibilidad o solicitud de correo. **Hecho**
   - Publicar el commit y actualizar el consumidor fijado del Enrutador. **Pendiente**
 
+- **TODO-046 — Unificar la fuente de correo del lead** · 2026-08-19
+  - Validar el correo persistido y el capturado en la conversación con el mismo resolver. **Hecho**
+  - Evitar que Prompt Master vuelva a solicitar un correo válido ya guardado. **Hecho**
+  - Mantener la solicitud cuando el correo guardado está malformado. **Hecho**
+
 - **TODO-041 — Adaptador versionado con el Enrutador**
   - Definir manifiesto, versión, entrada/salida y errores públicos. **Hecho**
   - Añadir autenticación por scopes, aislamiento por organización/conversación e idempotencia. **Hecho**

@@ -78,6 +78,27 @@ test("instructs generic agents to collect configured fields subtly", async () =>
   assert.match(body.instructions, /latest message confirms reservation intent|If reservation intent appears/i);
 });
 
+test("does not ask for an email already stored for the lead", async () => {
+  let body;
+  const generate = createOpenAiPrequalifierGenerator({ apiKey: "synthetic", fetchImpl: async (_url, options) => {
+    body = JSON.parse(options.body);
+    return { ok: true, async json() { return { output: [{ content: [{ type: "output_text", text: '{"text":"Continuemos."}' }] }] }; } };
+  } });
+  await generate({ agent_dna: { custom_fields: [{ id: "email", label: "Correo", type: "email" }] }, lead: { email: "mario@example.com" }, custom_field_values: {}, inbound: { text: "Quiero agendar" } });
+  assert.match(body.instructions, /Configured fields still missing: none/i);
+  assert.doesNotMatch(body.instructions, /ask naturally for the first missing field, Correo/i);
+});
+
+test("does not treat a malformed stored email as known", async () => {
+  let body;
+  const generate = createOpenAiPrequalifierGenerator({ apiKey: "synthetic", fetchImpl: async (_url, options) => {
+    body = JSON.parse(options.body);
+    return { ok: true, async json() { return { output: [{ content: [{ type: "output_text", text: '{"text":"¿Me compartes tu correo?"}' }] }] }; } };
+  } });
+  await generate({ agent_dna: { custom_fields: [{ id: "email", label: "Correo", type: "email" }] }, lead: { email: "malformado" }, custom_field_values: {}, inbound: { text: "Quiero agendar" } });
+  assert.match(body.instructions, /Configured fields still missing: email \(Correo\)/i);
+});
+
 test("passes the first missing capture target when reservation is confirmed", async () => {
   let body;
   const generate = createOpenAiPrequalifierGenerator({ apiKey: "synthetic", fetchImpl: async (_url, options) => {

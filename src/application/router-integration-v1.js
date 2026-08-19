@@ -6,7 +6,8 @@ export const ROUTER_INTEGRATION_V1 = Object.freeze({
   schemaVersion: 1,
   capability: "real_estate_prequalifier",
   controller: "conversational",
-  strategy: "additive",
+  strategy: "handoff",
+  handoff_contract_version: "superpower.handoff.v1",
 });
 
 function declaresCapability(agentDna) {
@@ -59,6 +60,7 @@ export function createRouterIntegrationV1({ generator } = {}) {
         orchestration: {
           controller: ROUTER_INTEGRATION_V1.controller,
           strategy: ROUTER_INTEGRATION_V1.strategy,
+          handoff_contract_version: ROUTER_INTEGRATION_V1.handoff_contract_version,
           superpowers: [ROUTER_INTEGRATION_V1.capability, ...(contract.scheduler_available ? ["scheduler"] : [])],
         },
         campaign_id: contract.campaign_id,

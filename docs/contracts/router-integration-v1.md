@@ -13,8 +13,9 @@ debe convertirse en una segunda inteligencia que responda por encima del agente 
 
 1. `conversational` es el controlador único del turno: entiende la intención, conserva el tono y
    decide si necesita precalificar, agendar u ofrecer otra capacidad.
-2. `real_estate_prequalifier` es un módulo aditivo. Devuelve estado estructurado y sugerencia de
-   siguiente paso; no envía mensajes por su cuenta ni reemplaza la respuesta del conversador.
+2. `real_estate_prequalifier` es un módulo ejecutor por handoff. Devuelve estado estructurado y
+   sugerencia de siguiente paso; no envía mensajes por su cuenta ni reemplaza la respuesta del
+   conversador.
 3. Un mismo agente puede tener `conversational + real_estate_prequalifier + scheduler`. La misión
    del Agent DNA define la prioridad y el orden; las capacidades no son tipos excluyentes de agente.
 4. Si no se declara ninguna capacidad, el Enrutador normaliza `conversational`. Un DNA antiguo con
@@ -39,6 +40,11 @@ El Enrutador invoca el módulo con un contrato equivalente a:
   "qualification_state": "estado anterior o vacío",
   "custom_field_values": "datos ya confirmados",
   "scheduler_available": false,
+  "orchestration": {
+    "controller": "conversational",
+    "strategy": "handoff",
+    "handoff_contract_version": "superpower.handoff.v1"
+  },
   "lead": { "first_name": "solo nombre", "phone": "phone aislado" },
   "inbound": { "text": "último mensaje transcrito" }
 }
@@ -80,10 +86,11 @@ Debe devolver un resultado estructurado para que el conversador lo integre:
 ```
 
 `scheduler_available` es opcional y por defecto `false`. Cuando es `true`, el generador puede
-devolver una acción `scheduling` estrictamente estructurada. El módulo no llama al calendario ni
-crea, modifica o cancela citas: el Enrutador ejecuta la acción mediante su adaptador de agenda,
-aplicando sus reglas de autorización, idempotencia y confirmación explícita. Si la capacidad no
-está habilitada, cualquier salida de agenda se rechaza.
+devolver una acción `scheduling` estrictamente estructurada para iniciar un handoff. El módulo no
+llama al calendario ni crea, modifica o cancela citas: el Enrutador ejecuta la acción mediante su
+adaptador de agenda, aplicando sus reglas de autorización, idempotencia y confirmación explícita.
+El texto del módulo no debe enumerar disponibilidad ni solicitar el correo que administra el
+Agendador. Si la capacidad no está habilitada, cualquier salida de agenda se rechaza.
 
 Los estados y acciones válidos son los definidos en
 `docs/contracts/qualification-state-and-events.md`. Los eventos deben incluir revisión e
@@ -108,7 +115,7 @@ técnicos. Los campos sensibles requieren consentimiento y nunca deben inventars
 - La creación de agentes comienza con identidad vacía y solo Conversación general seleccionada.
 - La interfaz distingue el controlador conversacional de los súper poderes.
 - El backend normaliza capacidades antiguas y garantiza el controlador.
-- El runner pasa al proveedor la orquestación: controlador `conversational`, estrategia `additive` y
+- El runner pasa al proveedor la orquestación: controlador `conversational`, estrategia `handoff` y
   lista de súper poderes habilitados.
 - Los prompts derivados indican que el conversador decide cuándo invocar el módulo.
 - Se corrigió la activación accidental por `kind` en agentes genéricos.

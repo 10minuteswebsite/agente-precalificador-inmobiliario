@@ -1,5 +1,16 @@
 # Estado actual
 
+## Migración a handoff — 2026-08-19
+
+- `createRouterIntegrationV1` ahora declara estrategia `handoff` y `superpower.handoff.v1`.
+- El módulo continúa devolviendo `scheduling` como acción compatible, pero ya no genera dentro del
+  texto listas de horarios, solicitud de correo ni confirmaciones que pertenecen al Agendador.
+- La firma y `schema_version: 1` se mantienen para no romper consumidores existentes.
+- Verificación local: `npm test` (223/223), `npm run pack:check` y `git diff --check`.
+
+**Active backlog item:** TODO-045
+**Next exact step:** publicar el cambio en GitHub y actualizar la dependencia fijada del Enrutador.
+
 **Fecha:** 2026-08-11  
 **Rama:** `main`
 **Fuente de verdad:** GitHub, repositorio `10minuteswebsite/agente-precalificador-inmobiliario`
@@ -37,7 +48,7 @@ la memoria, el aislamiento, los leads, las campañas y el estado operativo.
 
 - **Manifiesto y versión:** `module-manifest.json` (schema `1`, versión `1.0.0`) y
   `docs/contracts/module-manifest-v1.md`; capacidad `real_estate_prequalifier`, rol súper poder
-  aditivo, controlador `conversational`, estrategia `additive`.
+  por handoff, controlador `conversational`, estrategia `handoff`.
 - **Contrato de errores:** `docs/contracts/error-contract.md` con prefijos estables
   `invalid_router_input`, `router_integration` y los del dominio existente.
 - **Adaptador versionado:** `createRouterIntegrationV1({ generator })` valida la entrada

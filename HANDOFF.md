@@ -3,8 +3,8 @@
 ## Resultado del proyecto
 
 Este repositorio contiene el módulo de precalificación inmobiliaria que el Enrutador usa como súper
-poder aditivo. Devuelve estado estructurado, análisis y eventos; el conversador del Enrutador sigue
-siendo responsable del turno y la agenda externa de crear citas.
+poder por handoff. Devuelve estado estructurado, análisis y eventos; el conversador del Enrutador
+sigue siendo responsable del turno y la agenda externa de crear citas.
 
 ## Terminado
 

@@ -2,6 +2,11 @@
 
 ## Activo
 
+- **TODO-045 — Alinear el módulo con superpower.handoff.v1** · 2026-08-19
+  - Actualizar la estrategia pública de `additive` a `handoff` sin romper `schema_version: 1`. **Hecho**
+  - Evitar que el módulo genere diálogo interno de disponibilidad o solicitud de correo. **Hecho**
+  - Publicar el commit y actualizar el consumidor fijado del Enrutador. **Pendiente**
+
 - **TODO-041 — Adaptador versionado con el Enrutador**
   - Definir manifiesto, versión, entrada/salida y errores públicos. **Hecho**
   - Añadir autenticación por scopes, aislamiento por organización/conversación e idempotencia. **Hecho**

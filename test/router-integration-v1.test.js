@@ -237,7 +237,8 @@ test("declares the versioned capability contract", () => {
   assert.equal(ROUTER_INTEGRATION_V1.schemaVersion, 1);
   assert.equal(ROUTER_INTEGRATION_V1.capability, "real_estate_prequalifier");
   assert.equal(ROUTER_INTEGRATION_V1.controller, "conversational");
-  assert.equal(ROUTER_INTEGRATION_V1.strategy, "additive");
+  assert.equal(ROUTER_INTEGRATION_V1.strategy, "handoff");
+  assert.equal(ROUTER_INTEGRATION_V1.handoff_contract_version, "superpower.handoff.v1");
 });
 
 test("publishes a manifest and the referenced contract documents", async () => {

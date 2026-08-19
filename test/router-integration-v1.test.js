@@ -249,6 +249,8 @@ test("publishes a manifest and the referenced contract documents", async () => {
   assert.equal(manifest.contracts.public_entrypoint, "createPrequalifierModule");
   assert.equal(manifest.role, "additive-superpower");
   assert.equal(manifest.controller, "conversational");
+  assert.equal(manifest.strategy, "handoff");
+  assert.equal(manifest.handoff_contract_version, "superpower.handoff.v1");
   const manifestDoc = await readFile(new URL("../docs/contracts/module-manifest-v1.md", import.meta.url), "utf8");
   assert.match(manifestDoc, /createRouterIntegrationV1/);
   const errorDoc = await readFile(new URL("../docs/contracts/error-contract.md", import.meta.url), "utf8");

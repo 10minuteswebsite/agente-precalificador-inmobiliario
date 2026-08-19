@@ -14,7 +14,9 @@ integración `createRouterIntegrationV1` sin convertir rutas internas en API pú
 
 - `role`: `additive-superpower`.
 - `controller`: `conversational` (el Enrutador sigue siendo el controlador único del turno).
-- `strategy`: `additive` (el módulo nunca sustituye la respuesta del conversador).
+- `strategy`: `handoff` (el módulo recibe una transferencia y devuelve un resultado estructurado;
+  nunca sustituye la respuesta del conversador).
+- `handoff_contract_version`: `superpower.handoff.v1`.
 
 ## Entrada
 
@@ -45,7 +47,8 @@ ninguna organización. Todo proviene del `input` que el Enrutador controla.
 - `stateless`: el módulo no persiste datos operativos.
 - `idempotent`: entrada idéntica (mismos scopes, clave de idempotencia y estado previo) produce
   salida idéntica; los reintentos no duplican eventos.
-- `additive`: el conversador decide cuándo invocarlo y conserva las integraciones externas.
+- `additive`: la capacidad se suma al agente sin reemplazar al controlador.
+- `handoff`: el controlador entrega temporalmente la ejecución y retoma el turno al recibir el resultado.
 - Aislamiento por organización y conversación: el módulo rechaza estados con `_scope` ajeno y
   vincula cada evento derivado a los scopes recibidos.
 

@@ -5,7 +5,8 @@
   "version": "1.0.0",
   "role": "additive-superpower",
   "controller": "conversational",
-  "strategy": "additive",
+  "strategy": "handoff",
+  "handoff_contract_version": "superpower.handoff.v1",
   "capability": {
     "id": "real_estate_prequalifier",
     "document": "docs/contracts/real-estate-prequalifier-agent-dna.md"

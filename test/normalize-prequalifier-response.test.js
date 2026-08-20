@@ -47,6 +47,14 @@ test("emits appointment request only on transition to prequalified", () => {
   assert.deepEqual(repeated.events.map((event) => event.type), ["qualification.updated"]);
 });
 
+test("preserves structured appointment consent separately from qualification", () => {
+  const pending = output({ answers: { budget: { value: 500000 }, credit_score: { value: 720 } }, missing_question_ids: [], assessment: { status: "prequalified", urgency: "high", reasons: [], limitations: [] }, next_action: "request_appointment", appointment_consent: "pending" });
+  const first = normalizeAgentResponse({ agentDna, output: pending, conversationId: "conversation-consent" });
+  assert.equal(first.qualification_state.appointment_consent, "pending");
+  const accepted = normalizeAgentResponse({ agentDna, output: { ...pending, qualification_state: { ...pending.qualification_state, appointment_consent: "accepted" } }, currentState: first.qualification_state, conversationId: "conversation-consent" });
+  assert.equal(accepted.qualification_state.appointment_consent, "accepted");
+});
+
 test("rejects unknown facts and inconsistent actions", () => {
   const unknown = output({ answers: { secret_field: { value: "x" } } });
   assert.throws(() => normalizeAgentResponse({ agentDna, output: unknown, conversationId: "c" }), /answer_question_unknown/);

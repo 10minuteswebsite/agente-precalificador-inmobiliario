@@ -17,8 +17,9 @@ Cada conversación conserva un estado estructurado separado del texto y del resu
 - `assessment.urgency`: `low`, `medium` o `high`;
 - `assessment.reasons` y `limitations`: explicación breve para el realtor;
 - `next_action`: acción compatible con el estado.
+- `appointment_consent`: `pending`, `accepted`, `declined` o `ambiguous`. La precalificación por sí sola no autoriza una cita; el handoff de agenda requiere `accepted`.
 
-La IA no puede añadir respuestas para preguntas inexistentes, eliminar hechos previos omitiéndolos ni marcar como precalificado un caso sin perfil. El dominio deriva las preguntas obligatorias faltantes, respeta sus condiciones y evalúa todos los criterios indispensables antes de aceptar una precalificación. Una precalificación exige `request_appointment`; la integración de agenda continúa pendiente.
+La IA no puede añadir respuestas para preguntas inexistentes, eliminar hechos previos omitiéndolos ni marcar como precalificado un caso sin perfil. El dominio deriva las preguntas obligatorias faltantes, respeta sus condiciones y evalúa todos los criterios indispensables antes de aceptar una precalificación. Una precalificación conserva `appointment_consent=pending`; solo `appointment_consent=accepted` permite que el Enrutador entregue el control al Agendador.
 
 Si el proveedor falla o propone un estado inválido, el mensaje ya persistido abre una revisión humana, conserva la conversación y envía al lead una espera amable. La caída de una notificación interna opcional no interrumpe este flujo.
 

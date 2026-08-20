@@ -66,7 +66,8 @@ Debe devolver un resultado estructurado para que el conversador lo integre:
     "answers": {},
     "missing_question_ids": [],
     "assessment": { "status": "collecting", "urgency": "low", "reasons": [], "limitations": [] },
-    "next_action": "continue_qualification"
+    "next_action": "continue_qualification",
+    "appointment_consent": "pending"
   },
   "custom_fields": [],
   "events": [],
@@ -95,7 +96,9 @@ Agendador. Si la capacidad no está habilitada, cualquier salida de agenda se re
 Los estados y acciones válidos son los definidos en
 `docs/contracts/qualification-state-and-events.md`. Los eventos deben incluir revisión e
 idempotencia. La transición a `prequalified` puede derivar `lead.prequalified` y
-`appointment.requested`, pero la creación de la cita pertenece al adaptador de agenda.
+`appointment.requested`, pero la creación de la cita pertenece al adaptador de agenda. La transición a
+`prequalified` no equivale al consentimiento del lead: el handoff de agenda solo puede producirse con
+`qualification_state.appointment_consent=accepted`.
 Las acciones válidas son `none`, `propose_slots`, `get_booking`, `confirm_booking`,
 `reschedule_booking` y `cancel_booking`; todas llevan la forma completa del ejemplo para mantener
 un contrato estricto y versionable.

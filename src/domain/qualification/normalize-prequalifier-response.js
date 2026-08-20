@@ -3,6 +3,7 @@ import { normalizeCustomFieldValues } from "../leads/normalize-custom-field-valu
 
 const STATUSES = new Set(["collecting", "prequalified", "not_ready", "human_review"]);
 const URGENCY = new Set(["low", "medium", "high"]);
+const APPOINTMENT_CONSENTS = new Set(["pending", "accepted", "declined", "ambiguous"]);
 const NEXT_ACTIONS = {
   collecting: new Set(["continue_qualification", "human_handoff"]),
   prequalified: new Set(["request_appointment"]),
@@ -153,6 +154,8 @@ export function normalizeAgentResponse({ agentDna, output, currentState = {}, co
   const requirements = qualificationRequirements(agentDna, activeProfileId, answers);
   if (status === "prequalified" && requirements.missingRequired.length) fail("prequalified_required_answers_missing");
   if (status === "prequalified" && requirements.failedRequiredCriteria.length) fail("prequalified_required_criteria_failed");
+  const appointmentConsent = raw.appointment_consent ?? currentState.appointment_consent ?? (status === "prequalified" ? "pending" : null);
+  if (appointmentConsent !== null && !APPOINTMENT_CONSENTS.has(appointmentConsent)) fail("appointment_consent_invalid");
   const missing = [...new Set([...reportedMissing, ...requirements.missingRequired])].filter((id) => answers[id] === undefined);
   const previousAnswerIds = new Set(Object.keys(currentState.answers ?? {}));
   const newAnswerCount = Object.keys(answers).filter((id) => !previousAnswerIds.has(id)).length;
@@ -193,6 +196,7 @@ export function normalizeAgentResponse({ agentDna, output, currentState = {}, co
       limitations,
     },
     next_action: finalNextAction,
+    ...(appointmentConsent ? { appointment_consent: appointmentConsent } : {}),
     last_question_id: currentQuestionId,
     question_attempts: attempts,
     question_count: questionCount,

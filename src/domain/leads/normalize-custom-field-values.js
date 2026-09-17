@@ -25,7 +25,12 @@ export function normalizeCustomFieldValues({ fields = [], values = [], previous 
     if (field.type === "choice" && !field.options.includes(String(entry.value))) fail("choice_invalid");
     const confidence = entry.confidence ?? 1;
     if (typeof confidence !== "number" || confidence < 0 || confidence > 1) fail("confidence_invalid");
-    if (field.consent_required && entry.consent_given !== true) fail("consent_required");
+    // A provider may mention a sensitive field before the lead has explicitly
+    // authorized storing it. That is not an invalid turn: discard the
+    // unconsented value and let the conversational controller ask permission
+    // naturally. Failing the whole response here makes an otherwise valid
+    // first message impossible to deliver.
+    if (field.consent_required && entry.consent_given !== true) continue;
     result[field.id] = { label: field.label, value: entry.value, confidence, consent_given: field.consent_required ? true : Boolean(entry.consent_given) };
   }
   return result;

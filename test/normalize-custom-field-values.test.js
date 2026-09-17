@@ -30,8 +30,9 @@ test("stores email and phone values as text", () => {
   assert.equal(result.phone.value, "+1 305 555 0199");
 });
 
-test("requires consent before storing sensitive custom values", () => {
-  assert.throws(() => normalizeCustomFieldValues({ fields, values: [{ field_id: "salary", value: 80000, confidence: 1, consent_given: false }] }), /consent_required/);
+test("ignores sensitive custom values until consent is explicit", () => {
+  const result = normalizeCustomFieldValues({ fields, values: [{ field_id: "salary", value: 80000, confidence: 1, consent_given: false }] });
+  assert.equal(result.salary, undefined);
 });
 
 test("rejects values outside a configured choice list", () => {

@@ -49,6 +49,14 @@ npm test
 
 La configuración y los prompts deben derivarse del Agent DNA; ningún prompt es fuente de verdad.
 
+## Puente opcional con LA SOLUCIÓN IA Hub
+
+La rama de integración de `Súper Formularios` añade un callback web/auth
+independiente del núcleo del módulo. `/auth/hub` canjea el código temporal del
+Hub server-to-server y crea una sesión local Supabase; no modifica el contrato
+del Enrutador ni los datos operativos. La configuración requerida está en
+[`docs/PRODUCT_INTEGRATION_HUB.md`](docs/PRODUCT_INTEGRATION_HUB.md).
+
 ## Publicación
 
 La publicación se ejecuta desde `.github/workflows/publish.yml` al crear una etiqueta `vX.Y.Z` que

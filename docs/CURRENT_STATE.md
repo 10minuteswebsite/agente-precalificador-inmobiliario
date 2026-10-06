@@ -101,4 +101,20 @@ campos capturados de la conversación y después el correo persistido del lead. 
 formato válido cuenta como conocido; un valor malformado no evita la solicitud. Esto evita que el
 Prompt Master y el súper poder Agendamiento pidan dos veces el mismo dato.
 
-Verificación: `npm test` (225 pruebas), `npm run pack:check`, `git diff --check`.
+Verificación: `npm test` (225 pruebas de línea base; 231 con el puente),
+`npm run pack:check`, `git diff --check`.
+
+## Puente aditivo con LA SOLUCIÓN IA Hub — 2026-10-06
+
+- Rama aislada: `codex/super-formularios-hub-20261006`.
+- Producto comercial: `Súper Formularios`, slug `super-formularios`.
+- Dominio/callback: `formularios.lasolucionweb.net` y `/auth/hub?app=super-formularios`.
+- El puente canjea códigos de un solo uso del Hub desde el servidor y establece
+  una sesión Supabase local en cookies `HttpOnly`, `Secure`, `SameSite=Lax`.
+- El adaptador de autenticación conserva `Authorization: Bearer` y añade la
+  lectura de la cookie local; no cambia contratos ni lógica del precalificador.
+- El flujo de soporte no se habilita hasta que el Hub registre el cliente y el
+  callback de solo lectura.
+- El dominio aún no tiene DNS resoluble; no hay despliegue ni secretos
+  configurados. La verificación externa queda pendiente.
+- Verificación local: `npm test` pasa 231 pruebas y `npm run pack:check` pasa.

@@ -101,7 +101,8 @@ campos capturados de la conversación y después el correo persistido del lead. 
 formato válido cuenta como conocido; un valor malformado no evita la solicitud. Esto evita que el
 Prompt Master y el súper poder Agendamiento pidan dos veces el mismo dato.
 
-Verificación: `npm test` (225 pruebas), `npm run pack:check`, `git diff --check`.
+Verificación: `npm test` (225 pruebas de línea base; 231 con el puente),
+`npm run pack:check`, `git diff --check`.
 
 ## Puente aditivo con LA SOLUCIÓN IA Hub — 2026-10-06
 
@@ -116,4 +117,4 @@ Verificación: `npm test` (225 pruebas), `npm run pack:check`, `git diff --check
   callback de solo lectura.
 - El dominio aún no tiene DNS resoluble; no hay despliegue ni secretos
   configurados. La verificación externa queda pendiente.
-- Verificación local: `npm test` pasa 229 pruebas y `npm run pack:check` pasa.
+- Verificación local: `npm test` pasa 231 pruebas y `npm run pack:check` pasa.

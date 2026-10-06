@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Súper Formularios</title>
+    <style>
+      :root { color-scheme: light; font-family: system-ui, sans-serif; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f7f7f5; color: #161616; }
+      main { width: min(560px, calc(100% - 40px)); padding: 36px; border: 1px solid #deded8; border-radius: 18px; background: white; box-shadow: 0 18px 60px #0000000d; }
+      h1 { margin: 0 0 12px; font-size: 28px; }
+      p { line-height: 1.6; color: #555; }
+      #status { margin-top: 24px; padding: 14px; border-radius: 10px; background: #f1f1ed; font-size: 14px; }
+      a, button { display: inline-block; margin-top: 20px; border: 0; border-radius: 9px; padding: 10px 14px; background: #111; color: white; text-decoration: none; cursor: pointer; }
+      button { display: none; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Súper Formularios</h1>
+      <p>Portal de acceso del módulo de precalificación inmobiliaria.</p>
+      <div id="status">Comprobando sesión…</div>
+      <button id="logout" type="button">Cerrar sesión</button>
+    </main>
+    <script>
+      const status = document.querySelector('#status');
+      const logout = document.querySelector('#logout');
+      fetch('/auth/session', { credentials: 'include', cache: 'no-store' })
+        .then(async (response) => ({ ok: response.ok, body: await response.json() }))
+        .then(({ ok, body }) => {
+          if (!ok) { status.textContent = 'No hay una sesión activa. Abre el producto desde el Hub.'; return; }
+          status.textContent = `Sesión activa para ${body.user.email ?? 'usuario autenticado'}.`;
+          logout.style.display = 'inline-block';
+        })
+        .catch(() => { status.textContent = 'No fue posible comprobar la sesión.'; });
+      logout.addEventListener('click', () => { window.location.href = '/auth/logout'; });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/auth/hub", "destination": "/api/auth/hub" },
+    { "source": "/auth/hub-support", "destination": "/api/auth/hub-support" },
+    { "source": "/auth/hub-support/view", "destination": "/api/auth/hub-support-view" },
+    { "source": "/auth/logout", "destination": "/api/auth/logout" },
+    { "source": "/auth/support-logout", "destination": "/api/auth/support-logout" },
+    { "source": "/auth/session", "destination": "/api/auth/session" }
+  ]
+}

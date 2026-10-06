@@ -1,8 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
+import { accessTokenFromRequest } from "./hub-session.js";
 
 export function createUserApiClient(request, env = process.env) {
-  const authorization = request.headers?.authorization ?? request.headers?.Authorization;
-  const token = authorization?.match(/^Bearer\s+(.+)$/i)?.[1];
+  const token = accessTokenFromRequest(request);
   if (!env.SUPABASE_URL || !env.SUPABASE_ANON_KEY || !token) return null;
   return createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
     auth: { autoRefreshToken: false, persistSession: false },

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Soporte — Súper Formularios</title>
+    <style>
+      :root { font-family: system-ui, sans-serif; color: #161616; }
+      body { margin: 0; padding: 32px 20px; background: #f7f7f5; }
+      main { max-width: 980px; margin: 0 auto; }
+      header, section { padding: 22px; margin-bottom: 16px; border: 1px solid #deded8; border-radius: 16px; background: white; }
+      h1 { margin: 0 0 8px; }
+      h2 { margin: 0 0 12px; font-size: 18px; }
+      p { color: #555; }
+      pre { overflow: auto; padding: 16px; border-radius: 10px; background: #f1f1ed; font-size: 12px; }
+      a { color: #111; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Soporte de Súper Formularios</h1>
+        <p>Esta vista es temporal, auditable y de solo lectura. No habilita mutaciones.</p>
+        <a href="/auth/support-logout">Cerrar soporte</a>
+      </header>
+      <section id="status">Cargando información…</section>
+    </main>
+    <script>
+      const root = document.querySelector('#status');
+      fetch('/auth/hub-support/view', { credentials: 'include', cache: 'no-store' })
+        .then(async (response) => ({ ok: response.ok, body: await response.json() }))
+        .then(({ ok, body }) => {
+          if (!ok) { root.textContent = body.error ?? 'La sesión de soporte no es válida.'; return; }
+          const tenant = body.tenant?.name ?? body.tenant?.id ?? 'Sin organización';
+          root.innerHTML = `<h2>Organización: ${escapeHtml(tenant)}</h2><p>Agentes: ${body.agents.length} · Campañas: ${body.campaigns.length} · Conversaciones: ${body.conversations.length} · Leads: ${body.leads.length}</p><pre>${escapeHtml(JSON.stringify(body, null, 2))}</pre>`;
+        })
+        .catch(() => { root.textContent = 'No fue posible cargar la vista de soporte.'; });
+      function escapeHtml(value) { return String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char])); }
+    </script>
+  </body>
+</html>

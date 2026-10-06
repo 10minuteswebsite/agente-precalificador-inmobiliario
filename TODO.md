@@ -31,3 +31,10 @@
 - **TODO-044 — Integrar el agendamiento** cuando el proyecto externo publique su endpoint autenticado.
 
 No se incluyen aquí ideas descartadas ni tareas pertenecientes al dashboard del Enrutador.
+
+## TODO-047 — Conexión aditiva con LA SOLUCIÓN IA Hub
+
+- Añadir el callback web/auth sin tocar el Agent DNA ni los contratos del módulo. **Hecho en rama aislada**
+- Probar canje server-to-server y sesión local segura. **Hecho con dobles de prueba**
+- Registrar el producto, precio y cliente en el Hub. **Pendiente de integración coordinada**
+- Configurar DNS, secretos y despliegue. **Pendiente de autorización operativa/evidencia**
